@@ -1,0 +1,20 @@
+SELECT
+    `mstr_pegawai`.`ID_PEGAWAI`
+    , `mstr_pegawai`.`NAMA_PEGAWAI`
+,(((((`mstr_level`.`POINT_LEVEL` + `mstr_karir`.`POINT_KARIR`) + `mstr_risiko_kerja`.`POINT_RISIKO`) + `mstr_ket_khusus`.`POINT_KET`) + `mstr_intensitas`.`POINT_INTENSITAS`) + `mstr_absensi`.`POINT_ABSENSI`) AS `point`
+FROM
+    `mstr_level`
+    LEFT JOIN `mstr_pegawai` 
+        ON (`mstr_level`.`ID_LEVEL` = `mstr_pegawai`.`ID_LEVEL`)
+            LEFT JOIN `mstr_karir` 
+        ON (`mstr_karir`.`ID_KARIR` = `mstr_pegawai`.`ID_KARIR`)
+            LEFT JOIN `mstr_risiko_kerja` 
+        ON (`mstr_risiko_kerja`.`ID_RISIKO` = `mstr_pegawai`.`ID_RISIKO`)
+            LEFT JOIN `mstr_ket_khusus` 
+        ON (`mstr_ket_khusus`.`ID_KET` = `mstr_pegawai`.`ID_KET`)
+            LEFT JOIN `mstr_intensitas` 
+        ON (`mstr_intensitas`.`ID_INTENSITAS` = `mstr_pegawai`.`ID_INTENSITAS`)
+            LEFT JOIN `mstr_absensi` 
+        ON (`mstr_absensi`.`ID_ABSENSI` = `mstr_pegawai`.`ID_ABSENSI`)
+
+WHERE (`mstr_pegawai`.`STATUS` = 'Y');
